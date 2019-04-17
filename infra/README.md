@@ -11,7 +11,7 @@ Terraform configuration for infrastructure. For a why and how of Terraform pleas
 1. [Download and install terraform](https://www.terraform.io/downloads.html)
 2. Git clone this repository and cd into this directory
 3. Ensure you have `gcloud` CLI to connect to the needed account ([Download Link](https://cloud.google.com/sdk/))
-4. [Get serviceaccount credentials](./docs/get_credentials.json)
+4. [Get serviceaccount credentials](./docs/get_credentials.md)
 4. Run `terraform init` in this folder
 
 ## Google Cloud Platform Accounts
