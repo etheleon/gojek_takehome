@@ -1,0 +1,15 @@
+# main
+-r main.txt
+
+# Testing
+-r test.txt
+
+# API
+webargs==4.0.0
+flask-swagger-ui==3.18.0
+
+# Extra
+attr==0.3.1
+attrdict==2.0.0
+dynaconf[vault]==1.0.6
+pandas==0.23.4
