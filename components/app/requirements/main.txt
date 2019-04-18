@@ -1,6 +1,9 @@
 # main
 -r main.txt
 
+# datawarehouse
+-r datawarehouse.txt
+
 # Testing
 -r test.txt
 
