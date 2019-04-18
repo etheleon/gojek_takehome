@@ -11,7 +11,7 @@ We would like you to build a Web Service that provides basic analytics over taxi
 
 
 | Tables |
-| — |
+| --- |
 | tlc_green_trips_2014 |
 | tlc_green_trips_2015 |
 | tlc_green_trips_2016 |
@@ -21,6 +21,7 @@ We would like you to build a Web Service that provides basic analytics over taxi
 | tlc_yellow_trips_2017 |
 
 The endpoints you need to support are:
+
 * Total trips per day
 * Fare heatmap
 * Average speed in the past 24 hours
