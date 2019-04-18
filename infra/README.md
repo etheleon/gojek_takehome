@@ -34,7 +34,7 @@ If you have multiple GCP accounts
         ```
         [core]
 	     account = <email>
-	     project = <projectname>
+	     project = <project-id>
         ```
     
     > Original config would be found in `config_default`.
@@ -48,15 +48,41 @@ If you have multiple GCP accounts
 * __Step 3: Login__
 
     ```
-    $ gcloud auth login
+    $ gcloud auth login --no-launch-browser
     ```
     
-    This will open a browser asking you to authenticate
+    Follow link to authenticate
     
+* __Step 4: Create Project__
+
+	* Create project
+
+    ```
+    gcloud projects create <your>-dl --enable-cloud-apis
+    ```
+    
+	* Set project
+
+	```
+	gcloud config set project  <your>-dl
+	```
+	
+* __Step 5: Enable API__
+
+	* enable cloud api
+
+	```
+	gcloud services enable compute.googleapis.com
+
+	```
 
 ## Repository Overview
 
+
+
 ## Top Level Structure
+
+
 
 ## Configuration
 
