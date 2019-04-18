@@ -2,3 +2,5 @@ creds/*
 .terraform
 terraform.tfvars
 terraform.tfstate.backup
+terraform.tfstate
+kubeconfig

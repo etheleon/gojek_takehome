@@ -6,11 +6,12 @@ resource "google_container_cluster" "gojek" {
   remove_default_node_pool = true
 	initial_node_count = 1
 
-	#disable basic auth
-	master_auth {
-		username = ""
-		password = ""
-	}
+  master_auth {
+    username = "altimit"
+    password = "pvuCWQokALeyUQ2zWU4yEqJz"
+  }
+
+  enable_legacy_abac = true
 }
 
 resource "google_container_node_pool" "main_pool" {
@@ -30,6 +31,8 @@ resource "google_container_node_pool" "main_pool" {
 		oauth_scopes = [
 			"https://www.googleapis.com/auth/logging.write",
 			"https://www.googleapis.com/auth/monitoring",
+      "https://www.googleapis.com/auth/compute",
+      "https://www.googleapis.com/auth/devstorage.read_only",
 		]
 	}
 }
@@ -52,18 +55,11 @@ resource "google_container_node_pool" "gpu_pool" {
   }
 }
 
-data "terraform_remote_state" "webservice" {
-  backend = "gcs"
-  config = {
-    bucket  = "terraform-state"
-    prefix  = "prod"
-  }
-}
-
 data "template_file" "kubeconfig" {
   template = "${file("${path.module}/kubeconfig-template.yaml")}"
 
   vars {
+    context = "gojek"
     cluster_name    = "${google_container_cluster.gojek.name}"
     user_name       = "${google_container_cluster.gojek.master_auth.0.username}"
     user_password   = "${google_container_cluster.gojek.master_auth.0.password}"
