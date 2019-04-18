@@ -14,6 +14,16 @@ resource "google_container_cluster" "gojek" {
   enable_legacy_abac = true
 }
 
+resource "google_storage_bucket" "terraform-state-storage-gb" {
+  name     = "terraform-remote-state-storage-gb"
+}
+
+terraform {
+  backend "gcs" {
+    bucket  = "terraform-remote-state-storage-gb"
+  }
+}
+
 resource "google_container_node_pool" "main_pool" {
 	name       = "normal"
 	location   = "${var.gke_region}"
