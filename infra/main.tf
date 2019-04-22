@@ -47,6 +47,21 @@ resource "google_container_node_pool" "main_pool" {
 	}
 }
 
+resource "google_container_node_pool" "highmem_pool" {
+	name               = "highmem"
+	location               = "${var.gke_region}"
+	cluster            = "${google_container_cluster.gojek.name}"
+	initial_node_count = 0
+	autoscaling {
+		min_node_count = 0
+		max_node_count = 5
+	}
+	# number of GPUs attached to each instance
+  node_config{
+    machine_type = "n1-highmem-16"
+  }
+}
+
 resource "google_container_node_pool" "gpu_pool" {
 	name               = "gpu"
 	location               = "${var.gke_region}"
