@@ -1,18 +1,26 @@
+terraform {
+  backend "gcs" {
+    bucket  = "terraform-remote-state-storage-gb"
+    project = "datascience-237903"
+    credentials = "./creds/serviceaccount.json"
+  }
+}
+
+
 resource "google_container_cluster" "gojek" {
 	name               = "${var.gke_cluster_name}"
 	network            = "default"
-	location               = "${var.gke_region}"
+	location               = "${var.region}"
 
   remove_default_node_pool = true
 	initial_node_count = 1
 
   master_auth {
-    username = "altimit"
-    password = "pvuCWQokALeyUQ2zWU4yEqJz"
+    username = "${var.username}"
+    password = "${var.password}"
   }
 
-  enable_legacy_abac = true
-}
+  min_master_version = "${var.k8s-version}"
 
 resource "google_storage_bucket" "terraform-state-storage-gb" {
   name     = "terraform-remote-state-storage-gb"
@@ -28,13 +36,20 @@ terraform {
     project = "datascience-237903"
     credentials = "./creds/serviceaccount.json"
   }
+  enable_legacy_abac = true
 }
 
 resource "google_container_node_pool" "main_pool" {
 	name       = "normal"
-	location   = "${var.gke_region}"
+	location   = "${var.region}"
 	cluster    = "${google_container_cluster.gojek.name}"
 	node_count = 1
+	autoscaling {
+		min_node_count = 1
+		max_node_count = 3
+	}
+
+  version = "${var.k8s-version}"
 
 	node_config {
 		preemptible  = true
@@ -70,7 +85,7 @@ resource "google_container_node_pool" "highmem_pool" {
 
 resource "google_container_node_pool" "gpu_pool" {
 	name               = "gpu"
-	location               = "${var.gke_region}"
+	location               = "${var.region}"
 	cluster            = "${google_container_cluster.gojek.name}"
 	initial_node_count = 0
 	autoscaling {
@@ -78,6 +93,9 @@ resource "google_container_node_pool" "gpu_pool" {
 		max_node_count = 3
 	}
 	# number of GPUs attached to each instance
+
+  version = "${var.k8s-version}"
+
   node_config{
     guest_accelerator {
       type  = "nvidia-tesla-p4"
