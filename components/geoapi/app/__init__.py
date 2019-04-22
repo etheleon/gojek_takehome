@@ -1,41 +1,47 @@
+""" GeoAPI
+"""
+
 from flask import (
     Flask,
     jsonify,
     make_response
 )
+import pandas as pd
 
 from dynaconf import settings
 
-from api.heartbeat import heartbeat_blueprint
-from api.total_trips import total_trips_blueprint
-from api.fare_heatmap import fare_heatmap_blueprint
-from api.ave_speed import ave_speed_blueprint
-from api.swagger import swagger_blueprint
-from flask_swagger_ui import get_swaggerui_blueprint
+from api.heartbeat import heartbeat
+from api.trips import trips
+from api.fare import fare
+from api.swagger import swagger
 
 
 BLUEPRINTS = [
-    (total_trips_blueprint, ['/v1']),
-    (fare_heatmap_blueprint, ['/v1']),
-    (ave_speed_blueprint, ['/v1']),
-    (swagger_blueprint, ['/v1/docs'])
+    (trips, ['/v1']),
+    (fare, ['/v1']),
+    (swagger, ['/v1/docs'])
 ]
 
+
 def create_app():
-    app = Flask(__name__, static_url_path="/static")
+    """Application Factory"""
+    app = Flask(__name__,
+                static_url_path="/static")
 
+    app.trips = {
+        "total_trips": pd.read_csv("assets/here.csv.gzip", compression="gzip")
+    }
 
-    # Heartbeat API
-    app.register_blueprint(heartbeat_blueprint)
+    app.register_blueprint(heartbeat)
 
     # Additional
     for blueprint, prefixes in BLUEPRINTS:
         for prefix in prefixes:
             app.register_blueprint(blueprint, url_prefix=prefix)
+
     @app.errorhandler(404)
-    def not_found(error):
-        return make_response(jsonify({'error': 'Not found'}), 404)
+    def not_found(error):  # pylint: disable=unused-variable
+        """doc string"""
+        return make_response(jsonify({'error': f'Not found: {error}'}), 404)
 
     return app
-
-app = create_app()

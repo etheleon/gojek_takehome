@@ -1,0 +1,112 @@
+swagger: "2.0"
+info:
+  description: "This is a microservice which serves statistics about NYC taxi data"
+  version: "1.0.0"
+  title: "Gojek GEO API"
+  contact:
+    email: "etheleon@protonmail.com"
+host: "gojek.takehome"
+basePath: "/v1"
+tags:
+- name: "Trip"
+  description: "Trip Centric Queries"
+  externalDocs:
+    description: "Find out more"
+    url: "http://swagger.io"
+- name: "Location"
+  description: "Location Centric Queries"
+schemes:
+- "http"
+paths:
+  /total_trips:
+    get:
+      tags:
+      - "Trip"
+      summary: "Number of Trips per day"
+      description: "Given the date in `YYYY-MM-DD` format get the total number of trips"
+      operationId: "addPet"
+      parameters:
+      - in: "query"
+        name: "start_date"
+        description: "Start Date"
+        required: true
+        type: "string"
+        format: "full-date"
+      - in: "query"
+        name: "end_date"
+        description: "End Date"
+        required: true
+        type: "string"
+        format: "full-date"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/totaltrips"
+        405:
+          description: "Invalid input"
+  /average_fare_heatmap:
+    get:
+      tags:
+      - "Location"
+      summary: "Average Fare in S2 Cell"
+      description: "Gets the average fare within S2 cell"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "date"
+        in: "query"
+        description: "Date in `YYYY-MM-DD` format"
+        required: true
+        type: "string"
+        format: "full-date"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/totaltrips"
+        400:
+          description: "Invalid status value"
+  /average_speed_24hrs:
+    get:
+      tags:
+      - "Trip"
+      summary: "Average Speed per day"
+      description: "Returns Average speed on a given day."
+      produces:
+      - "application/json"
+      parameters:
+      - name: "date"
+        in: "query"
+        description: "Day to query in `YYYY-MM-DD` format"
+        required: true
+        type: "string"
+        format: "full-date"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/totaltrips"
+        400:
+          description: "Invalid tag value"
+definitions:
+  totaltrips:
+    type: "object"
+    properties:
+      date:
+        type: "string"
+        example: "2019-01-01"
+      totaltrips:
+        type: "integer"
+        example: 321
+    xml:
+      name: "Pet"
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"

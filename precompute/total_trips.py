@@ -76,3 +76,4 @@ if __name__ == '__main__':
     tables
 
     df = get_trips_per_day(tables)
+    df.to_csv("here.csv.gzip", compression="gzip", index=False)
