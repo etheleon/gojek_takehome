@@ -25,6 +25,8 @@ resource "google_storage_bucket" "api-assets" {
 terraform {
   backend "gcs" {
     bucket  = "terraform-remote-state-storage-gb"
+    project = "datascience-237903"
+    credentials = "./creds/serviceaccount.json"
   }
 }
 
