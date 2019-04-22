@@ -1,0 +1,4 @@
+# Main
+flask==0.11.1
+gunicorn==19.8.0
+
