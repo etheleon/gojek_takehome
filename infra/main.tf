@@ -18,6 +18,10 @@ resource "google_storage_bucket" "terraform-state-storage-gb" {
   name     = "terraform-remote-state-storage-gb"
 }
 
+resource "google_storage_bucket" "api-assets" {
+  name     = "geoapi-assets"
+}
+
 terraform {
   backend "gcs" {
     bucket  = "terraform-remote-state-storage-gb"

@@ -1,10 +1,11 @@
 """geolocation related function
 """
 
+import gc
+
 import s2sphere
 import pandas as pd
 
-import gc
 
 def latlng_to_s2cellid(lat, long):
     """
@@ -21,14 +22,16 @@ def compute_ave_fare(df):  # pylint: disable=invalid-name
     2. I need to know the intermediate memory consumption
     """
     latlongs = []
-    for latlong in list(zip(df.pickup_latitude, df.pickup_longitude)):
-        latlongs.append(latlng_to_s2cellid(*latlong))
+    for _, row in df.iterrows():
+        latlongs.append(latlng_to_s2cellid(row.pickup_latitude,
+                                           row.pickup_longitude))
     cellids = pd.Series(latlongs, dtype="category")
     del latlongs
     gc.collect()
-    return (df
-            .loc[:, ["date", "total_amount"]]
-            .assign(cellid=cellids)
-            .groupby(["date", "cellid"])
-            .mean()
-            .dropna())
+    # return (df
+    #         .loc[:, ["date", "total_amount"]]
+    #         .assign(cellid=cellids)
+    #         .groupby(["date", "cellid"])
+    #         .mean()
+    #         .dropna())
+    return cellids
