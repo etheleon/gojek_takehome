@@ -123,11 +123,12 @@ def get_dataframe_from_bigquery(query, is_big=False,
                 blob.download_to_filename(file)
                 blob.delete()
 
+        print(regex_pattern)
         query_df = dd.read_csv(join("/tmp", f"{regex_pattern}*"),
                                compression='gzip')
         if as_pandas:
             query_df = query_df.as_pandas()
         client.delete_table(full_id, not_found_ok=True)
     else:
-        query_df = client.query(query).to_dataframe()
+        query_df = client.query(query).compute()
     return query_df
