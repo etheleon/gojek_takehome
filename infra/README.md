@@ -14,43 +14,45 @@ Terraform configuration for infrastructure. For a why and how of Terraform pleas
 4. [Get serviceaccount credentials](./docs/get_credentials.md)
 4. Run `terraform init` in this folder
 
+Read me here: https://cloud.google.com/community/tutorials/managing-gcp-projects-with-terraform
+
 ## Contribution
 
-Whenever you're making changes, try out 
+Whenever you're making changes, try out
 
 
 # Setting up Google CLI
 
 Do step 0 only if you have configure gcloud previously ie. multiple GCP projects / accounts
-        
+
 * __Step 0: Login__
 
     ```
     $ gcloud auth login --no-launch-browser
     ```
-    
+
     Follow link to authenticate
 
 
 * __Step 1: Configure gcloud CLI__
 
-	* Create alternative configuration: 
-	
+	* Create alternative configuration:
+
         ```bash
         $ ALIAS=gojek
         $ CONFIG_FILE=config_${ALIAS}
         $ vim $HOME/.config/gcloud/configurations/${CONFIG_FILE}
         ```
-    
 
-    * Include `<email>` and `<project-id>` 
+
+    * Include `<email>` and `<project-id>`
 
         ```
         [core]
 	     account = <email>
 	     project = <project-id>
         ```
-    
+
     > **NOTE**: Original config would be found in `config_default`.
 
     * Switch Accounts
@@ -58,7 +60,7 @@ Do step 0 only if you have configure gcloud previously ie. multiple GCP projects
         ```bash
         $ gcloud config configurations activate gojek
         ```
-    
+
 * __Step 4: Create Project__
 
 	* Create project
@@ -66,13 +68,13 @@ Do step 0 only if you have configure gcloud previously ie. multiple GCP projects
     ```
     gcloud projects create <your>-dl --enable-cloud-apis
     ```
-    
+
 	* Set project
 
 	```
 	gcloud config set project  <your>-dl
 	```
-	
+
 * __Step 5: Enable API__
 
 	* enable cloud api
