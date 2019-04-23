@@ -9,6 +9,4 @@ WORKDIR /geoapi
 
 RUN pip install --no-cache-dir -r requirements/all.txt
 
-WORKDIR
-
-CMD ["gunicorn", "-b", "0.0.0.0:5001", "--log-level", "info", "--pythonpath=/geoapp/app", "--timeout=120", "app:create_app()"]
+CMD ["gunicorn", "-b", "0.0.0.0:5001", "--log-level", "info", "--pythonpath=/geoapi/app", "--timeout=120", "app:create_app()"]
