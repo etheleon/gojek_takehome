@@ -1,5 +1,6 @@
 # Main
 flask==0.11.1
 gunicorn==19.8.0
+webargs==4.0.0
 flask_swagger_ui==3.20.9
-dyanaconf===2.0.1
+dynaconf==2.0.1
