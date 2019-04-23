@@ -1,12 +1,3 @@
-terraform {
-  backend "gcs" {
-    bucket  = "terraform-remote-state-storage-gb"
-    project = "datascience-237903"
-    credentials = "./creds/serviceaccount.json"
-  }
-}
-
-
 resource "google_container_cluster" "gojek" {
 	name               = "${var.gke_cluster_name}"
 	network            = "default"
@@ -21,6 +12,7 @@ resource "google_container_cluster" "gojek" {
   }
 
   min_master_version = "${var.k8s-version}"
+}
 
 resource "google_storage_bucket" "terraform-state-storage-gb" {
   name     = "terraform-remote-state-storage-gb"
@@ -36,7 +28,6 @@ terraform {
     project = "datascience-237903"
     credentials = "./creds/serviceaccount.json"
   }
-  enable_legacy_abac = true
 }
 
 resource "google_container_node_pool" "main_pool" {
@@ -123,3 +114,4 @@ resource "local_file" "kubeconfig" {
   content  = "${data.template_file.kubeconfig.rendered}"
   filename = "${path.module}/kubeconfig"
 }
+

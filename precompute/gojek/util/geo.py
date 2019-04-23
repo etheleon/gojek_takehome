@@ -27,7 +27,7 @@ def compute_ave_fare(df):  # pylint: disable=invalid-name
                                            row.pickup_longitude))
     cellids = pd.Series(latlongs, dtype="category")
     del latlongs
-    gc.collect()
+    # gc.collect()
     # return (df
     #         .loc[:, ["date", "total_amount"]]
     #         .assign(cellid=cellids)
