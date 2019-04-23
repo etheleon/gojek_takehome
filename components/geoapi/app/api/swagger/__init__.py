@@ -7,6 +7,6 @@ from dynaconf import settings
 
 swagger = get_swaggerui_blueprint(
     '/v1/docs',
-    f"http://{settings.SITENAME}/static/openapi.yml",
+    f"http://localhost:5000/static/openapi.yml",
     config={'app_name': "Gojek Geo API"}
 )

@@ -1,6 +1,8 @@
 """ GeoAPI
 """
 
+from os.path import join
+import logging
 from flask import (
     Flask,
     jsonify,
@@ -23,13 +25,28 @@ BLUEPRINTS = [
 ]
 
 
+def load_total_trips():
+    """loads total trips csv
+    """
+
+    try:
+        df = pd.read_csv(join(settings.ASSETS_DIR, "here.csv.gzip"),
+                         compression="gzip")
+        df["date"] = pd.to_datetime(df["date"], format="%Y-%m-%d")
+    except FileNotFoundError:
+        logging.info("Failed loading csv")
+        df = None
+    return df
+
+
 def create_app():
     """Application Factory"""
     app = Flask(__name__,
                 static_url_path="/static")
 
+    df = load_total_trips()
     app.trips = {
-        "total_trips": pd.read_csv("assets/here.csv.gzip", compression="gzip")
+        "total_trips": df
     }
 
     app.register_blueprint(heartbeat)
@@ -45,3 +62,6 @@ def create_app():
         return make_response(jsonify({'error': f'Not found: {error}'}), 404)
 
     return app
+
+
+app = create_app()

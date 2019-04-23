@@ -20,7 +20,7 @@ def get_trips(start='2016-01-01', end='2016-01-10'):
 
     firstdate = pd.to_datetime(start).date()
     lastdate = pd.to_datetime(end).date()
-    all_trips = (current_app.df
+    all_trips = (current_app.trips["total_trips"]
                  .query('@firstdate <= date < @lastdate')
                  .loc[:, ['date', 'total_trips']]
                  .assign(date=lambda df: format_date(df["date"])))
