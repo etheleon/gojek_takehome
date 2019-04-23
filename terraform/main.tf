@@ -61,7 +61,7 @@ resource "google_container_node_pool" "main_pool" {
 
 resource "google_container_node_pool" "highmem_pool" {
 	name               = "highmem"
-	location               = "${var.gke_region}"
+	location               = "${var.region}"
 	cluster            = "${google_container_cluster.gojek.name}"
 	initial_node_count = 0
 	autoscaling {
