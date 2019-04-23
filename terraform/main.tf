@@ -14,10 +14,6 @@ resource "google_container_cluster" "gojek" {
   min_master_version = "${var.k8s-version}"
 }
 
-resource "google_storage_bucket" "terraform-state-storage-gb" {
-  name     = "terraform-remote-state-storage-gb"
-}
-
 resource "google_storage_bucket" "gojek-geoapi-assets" {
   name     = "geoapi-assets"
 }
