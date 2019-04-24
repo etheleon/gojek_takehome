@@ -25,3 +25,4 @@ variable "k8s-version" {
   type        = "string"
   description = "Required K8s version you can run gcloud container get-server-config --zone asia-southeast1-b if you can "
 }
+
