@@ -7,13 +7,18 @@ The intructions for this takehome test can be found in the [INSTRUCTIONS.md](./I
 
 In this root directory you will find several directories
 
-* `terraform` stores the necessary scripts to recreate the serving environment.
-* `helm-charts` stores the helm chart to deploy the µservice _geoapi_.
+* `terraform` stores the necessary scripts to create GKE cluster.
+* `helm-charts` stores µservice's helm chart.
 * `precompute` stores the scripts to generate the data served by the APIs
-* `notebook` stores EDA to understand the tables
-* `components` stores the code base for the different parts of the api eg. the python flask app. Other future components eg. databases, cache, message queues, etc can be stored here.
-
+* `notebook` stores EDA notebook
+* `components` stores the code base for the different pieces required
+	* flask app for geoapi
+	* Possible extensions: Kafka / Database / Cache / Other µservices
+	
+	
 ## Installation
+
+Read the [installation guide](./docs/00-introduction.md) for setting up the microservice
 
 # FAQ
 
