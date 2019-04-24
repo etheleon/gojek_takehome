@@ -12,6 +12,11 @@ image:
 nameOverride: ""
 fullnameOverride: ""
 
+geoapi:
+  containerPort: 5001
+  liveness: "/heartbeat"
+  readiness: "/heartbeat"
+
 service:
   type: ClusterIP
   port: 80

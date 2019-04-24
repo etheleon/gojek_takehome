@@ -25,15 +25,15 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: 80
+              containerPort: {{ .Values.geoapi.containerPort}}
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /heartbeat
+              path: "{{ .Values.geoapi.liveness }}"
               port: http
           readinessProbe:
             httpGet:
-              path: /heartbeat
+              path: "{{ .Values.geoapi.readiness }}"
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
