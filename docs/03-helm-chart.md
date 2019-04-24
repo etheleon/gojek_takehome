@@ -24,10 +24,6 @@ Once you've run `terraform apply`, it's time now to install `helm` and `tiller`
 
 ## Step 2: Install Tiller (server)
 
-```
-helm init
-```
-
 * Set up service account and bind cluster role
 
     ```
@@ -44,6 +40,13 @@ helm init
     kubectl patch deploy --namespace kube-system tiller-deploy \
 	    -p '{"spec":{"template":{"spec":{"serviceAccount":"tiller"}}}}'
     ```
+    
+* Install tiller
+
+    ```
+    helm init
+    ```
+
 
 ## Step 3: Install helm chart
 
