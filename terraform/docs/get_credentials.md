@@ -3,18 +3,6 @@
 
 > You can generate the serviceaccount credentials using either **GUI** or **gcloud CLI**.
 
-## glcoud CLI
-
-```
-gcloud projects add-iam-policy-binding <your>-dl \
-            --member='serviceAccount:gcp-terraform-dl@ <your>-dl.iam.gserviceaccount.com' --role='roles/editor'
-```
-
-```
-gcloud iam service-accounts keys create 'credentials.json' --iam-account='gcp-terraform-dl@<your>-dl.iam.gserviceaccount.com'
-```
-
-## GUI
 
 Download the service account credentials:
 
