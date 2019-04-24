@@ -5,9 +5,9 @@
 replicaCount: 1
 
 image:
-  repository: gcr.io/
-  tag: stable
-  pullPolicy: IfNotPresent
+  repository: gcr.io/datascience-237903/gojek
+  tag: geoapi
+  pullPolicy: Always
 
 nameOverride: ""
 fullnameOverride: ""
@@ -17,7 +17,7 @@ service:
   port: 80
 
 ingress:
-  enabled: true
+  enabled: false
   annotations:
     kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
