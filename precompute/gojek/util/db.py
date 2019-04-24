@@ -130,5 +130,5 @@ def get_dataframe_from_bigquery(query, is_big=False,
             query_df = query_df.as_pandas()
         client.delete_table(full_id, not_found_ok=True)
     else:
-        query_df = client.query(query).compute()
+        query_df = client.query(query).to_dataframe()
     return query_df

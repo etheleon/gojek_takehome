@@ -1,11 +1,13 @@
+""" Downloads and formats data for API 1: TOTALTRIPS
+"""
 
 import re
+from tempfile import NamedTemporaryFile
 
 import pandas as pd
 
-from google.cloud import bigquery
-from google.cloud import storage
-client = bigquery.Client()
+from gojek.util.gcs import upload_blob
+from gojek.util.db import get_dataframe_from_bigquery
 
 
 def get_trips_per_day(tables):
@@ -52,28 +54,30 @@ def get_trips_per_day(tables):
     dfs = []
     for table in tables:
         (_, color, _, year) = re.split("_", table)
-        dfs.append(client.query(
-            query.format(
-                TABLE=table,
-                YEAR=year,
-                COLOR=color
-            )
-        ).to_dataframe())
+        dfs.append(
+            get_dataframe_from_bigquery(
+                query.format(TABLE=table, YEAR=year, COLOR=color)
+            ))
     return (pd.concat(dfs)
             .loc[:, ['date', 'total_trips']]
             .groupby(['date'])
             .sum()
             .reset_index())
 
+
 if __name__ == '__main__':
 
-    # Green taxis
-    greens = "tlc_green_trips_{YEAR}"
-    yellows = "tlc_yellow_trips_{YEAR}"
+    AFILE = NamedTemporaryFile()
+    BUCKET_NAME = "geoapi-assets"
 
-    tables = [greens.format(YEAR=year) for year in [2014, 2015, 2016, 2017]]
-    tables.extend([yellows.format(YEAR=year) for year in [2015, 2016, 2017]])
-    tables
+    GREENS = "tlc_green_trips_{YEAR}"
+    YELLOWS = "tlc_yellow_trips_{YEAR}"
 
-    df = get_trips_per_day(tables)
-    df.to_csv("here.csv.gzip", compression="gzip", index=False)
+    TABLES = [GREENS.format(YEAR=year) for year in [2014, 2015, 2016, 2017]]
+    TABLES.extend([YELLOWS.format(YEAR=year) for year in [2015, 2016, 2017]])
+
+    TOTALTRIPS = get_trips_per_day(TABLES)
+
+    TOTALTRIPS.to_csv(AFILE.name, compression="gzip", index=False)
+
+    upload_blob(BUCKET_NAME, AFILE.name, "total_trips.csv.gz")
