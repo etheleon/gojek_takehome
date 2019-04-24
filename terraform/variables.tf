@@ -1,9 +1,3 @@
-variable "username" {
-  default="altimit"
-}
-
-variable "password" {}
-
 variable "project" {
   description = "The project name which the K8S cluster be provisioned under"
   default = "datascience-237903"
@@ -25,4 +19,3 @@ variable "k8s-version" {
   type        = "string"
   description = "Required K8s version you can run gcloud container get-server-config --zone asia-southeast1-b if you can "
 }
-

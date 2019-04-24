@@ -1,7 +1,3 @@
-output "kubeconfig_path" {
-  value = "${local_file.kubeconfig.filename}"
-}
-
 output "cluster_name" {
   value = "${google_container_cluster.gojek.name}"
 }
@@ -20,4 +16,8 @@ output "main_pool_version" {
 
 output "gpu_pool_version" {
   value = "${google_container_node_pool.gpu_pool.version}"
+}
+
+output "compute_pool_version" {
+  value = "${google_container_node_pool.compute_pool.version}"
 }

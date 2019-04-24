@@ -9,4 +9,3 @@ resource "google_storage_bucket_acl" "terraform-state-bucket-acl" {
   predefined_acl = "publicreadwrite"
 }
 
-

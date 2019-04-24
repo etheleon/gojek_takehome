@@ -1,3 +1,15 @@
+terraform {
+  backend "gcs" {
+    bucket  = "terraform-remote-state-storage-gb"
+    project = "datascience-237903"
+    credentials = "./creds/serviceaccount.json"
+  }
+}
+
+resource "google_storage_bucket" "gojek-geoapi-assets" {
+  name     = "geoapi-assets"
+}
+
 resource "google_container_cluster" "gojek" {
 	name               = "${var.gke_cluster_name}"
 	network            = "default"
@@ -7,23 +19,11 @@ resource "google_container_cluster" "gojek" {
 	initial_node_count = 1
 
   master_auth {
-    username = "${var.username}"
-    password = "${var.password}"
+    username = ""
+    password = ""
   }
 
   min_master_version = "${var.k8s-version}"
-}
-
-resource "google_storage_bucket" "gojek-geoapi-assets" {
-  name     = "geoapi-assets"
-}
-
-terraform {
-  backend "gcs" {
-    bucket  = "terraform-remote-state-storage-gb"
-    project = "datascience-237903"
-    credentials = "./creds/serviceaccount.json"
-  }
 }
 
 resource "google_container_node_pool" "main_pool" {
@@ -55,15 +55,18 @@ resource "google_container_node_pool" "main_pool" {
 	}
 }
 
-resource "google_container_node_pool" "highmem_pool" {
-	name               = "highmem"
+resource "google_container_node_pool" "compute_pool" {
+	name               = "compute"
 	location           = "${var.region}"
 	cluster            = "${google_container_cluster.gojek.name}"
 	initial_node_count = 0
 	autoscaling {
 		min_node_count = 0
-		max_node_count = 5
+		max_node_count = 3
 	}
+
+  version = "${var.k8s-version}"
+
   node_config{
     machine_type = "n1-highmem-16"
   }
@@ -87,24 +90,4 @@ resource "google_container_node_pool" "gpu_pool" {
       count = 1
     }
   }
-}
-
-data "template_file" "kubeconfig" {
-  template = "${file("${path.module}/kubeconfig-template.yaml")}"
-
-  vars {
-    context = "gojek"
-    cluster_name    = "${google_container_cluster.gojek.name}"
-    user_name       = "${google_container_cluster.gojek.master_auth.0.username}"
-    user_password   = "${google_container_cluster.gojek.master_auth.0.password}"
-    endpoint        = "${google_container_cluster.gojek.endpoint}"
-    cluster_ca      = "${google_container_cluster.gojek.master_auth.0.cluster_ca_certificate}"
-    client_cert     = "${google_container_cluster.gojek.master_auth.0.client_certificate}"
-    client_cert_key = "${google_container_cluster.gojek.master_auth.0.client_key}"
-  }
-}
-
-resource "local_file" "kubeconfig" {
-  content  = "${data.template_file.kubeconfig.rendered}"
-  filename = "${path.module}/kubeconfig"
 }
