@@ -37,5 +37,5 @@ This webservice is modelled closely after [12 Factor application](https://12fact
 * We will be using gunicorn as the applicatino server
 
 	```bash
-	gunicorn -b 0.0.0.0:5001 --pythonpath=$WORKDIR/app --timeout=120 	"app:create_app()"
+	gunicorn -b 0.0.0.0:5001 --pythonpath=$WORKDIR/app --timeout=120 "app:create_app()"
 	```
