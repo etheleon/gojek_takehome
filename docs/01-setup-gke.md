@@ -1,8 +1,8 @@
 > The following README assumes you already have a billing account set up with GCP
 
-# Setting Up the infrastructure
+# Google Kubernetes Engine
 
-Terraform configuration for infrastructure is found in the [terraform](../terraform).
+We will be spinning up the the cluster using Terraform. Terraform configuration files for infrastructure is found in  [terraform](../terraform).
 
 
 ## Getting started
