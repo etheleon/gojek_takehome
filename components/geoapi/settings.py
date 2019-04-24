@@ -1,6 +1,13 @@
+"""Stores settings
+"""
+
 import os
 
-BIGQUERY_DATASET=os.environ.get("GOJEK_DATASET", "gpsprice")
-BIGQUERY_BUCKET=os.environ.get("BUCKET", "bigquery_output_gojek")
-GCP_PROJECT=os.environ.get("PROJECT_ID", "datascience-237903")
-ASSETS_DIR=os.environ.get("ASSETS", "/Users/m179-hb/github/gojek_takehome/components/geoapi/app/assets")
+BIGQUERY_DATASET = os.environ.get("BIGQUERY_DATASET", "gpsprice")
+BIGQUERY_BUCKET = os.environ.get("BIGQUERY_BUCKET", "bigquery_output_gojek")
+GCP_PROJECT = os.environ.get("GCP_PROJECT", "datascience-237903")
+
+ASSETS = {
+    "BUCKET": os.environ.get("ASSSETS_BUCKET", "geoapi-assets"),
+    "LOCAL_DIR": os.environ.get("ASSETS_DIR", "/geoapi/app/assets")
+}

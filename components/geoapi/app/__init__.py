@@ -26,23 +26,27 @@ BLUEPRINTS = [
     (swagger, ['/v1/docs'])
 ]
 
+LOGGER = logging.getLogger('gunicorn.error')
+
 
 def load_total_trips():
     """loads total trips csv
     """
     try:
-        download_blob(settings.BUCKET,
+        download_blob(settings.ASSETS.BUCKET,
                       "total_trips.csv.gz",
-                      join(settings.ASSETS_DIR, "total_trips.csv.gz"))
-    except:
-        logging.warning("No such csv")
+                      join(settings.ASSETS.LOCAL_DIR,
+                           settings.ASSETS.TOTAL_TRIPS))
+    except Exception as err:  # pylint: disable=broad-except
+        LOGGER.warning(f"Failed Downloading total_trips: {err}")
 
     try:
-        df = pd.read_csv(join(settings.ASSETS_DIR, "total_trips.csv.gzip"),
+        df = pd.read_csv(join(settings.ASSETS.LOCAL_DIR,
+                              settings.ASSETS.TOTAL_TRIPS),
                          compression="gzip")
         df["date"] = pd.to_datetime(df["date"], format="%Y-%m-%d")
-    except FileNotFoundError:
-        logging.warning("Failed loading csv")
+    except FileNotFoundError as err:
+        LOGGER.warning(f"Failed reading total trips data: {err}")
         df = None
     return df
 
