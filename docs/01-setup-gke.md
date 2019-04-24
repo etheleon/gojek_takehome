@@ -109,4 +109,4 @@ If you have multiple GCP accounts
 
 ## Configuration
 
-
+Next: [Precomputing the serving data](02-precompute.md)
