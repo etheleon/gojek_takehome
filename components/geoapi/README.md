@@ -9,9 +9,7 @@ This webservice is modelled closely after [12 Factor application](https://12fact
 ### Prerequisites
 
 - [x] Python 3.6, Recommend using conda for easy installation.
-- [x] [PIP](https://pip.pypa.io/en/stable/installing/) installed.
-- [x] [Virtual Environment](http://docs.python-guide.org/en/latest/dev/virtualenvs/) installed.
-
+- [x] PIP (comes with conda installation)
 
 #### Setup environment
 
