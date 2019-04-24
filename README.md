@@ -5,20 +5,23 @@ The intructions for this takehome test can be found in the [INSTRUCTIONS.md](./I
 
 ## Folder Organisation
 
-In this root directory you will find several directories
 
-* `terraform` stores the necessary scripts to create GKE cluster.
-* `helm-charts` stores µservice's helm chart.
-* `precompute` stores the scripts to generate the data served by the APIs
+Starting with the root directory, you will find several folders:
+
+* `terraform` necessary scripts to recreate infrastructure eg. GKE cluster.
+* `helm-charts` µservice as an installable app using K8S's de-facto package manager _helm_ (similar to brew but for installing into K8S clusters)
+* `precompute` Contains the scripts to generate the data served by the APIs
 * `notebook` stores EDA notebook
-* `components` stores the code base for the different pieces required
-	* flask app for geoapi
-	* Possible extensions: Kafka / Database / Cache / Other µservices
+* `components` source for the different components required for the app, currently it's just one `geoapi` a flask app, possible to extend this further for other resources eg. cache, db, etc
 	
-	
-## Installation
+As well as standalone files:
 
-Read the [installation guide](./docs/00-introduction.md) for setting up the microservice
+* [cloudbuild.yaml](./cloudbuild.yaml) for build instructions; publishing images to GCR and installing the latest package 
+* [INSTRUCTIONS.md](./INSTRUCTIONS.md) which stores the takehome's instructions
+	
+## Getting Started
+
+Read the [installation guide](./docs/00-introduction.md) for instructions on setting up the microservice on Google Cloud Platform.
 
 # FAQ
 
