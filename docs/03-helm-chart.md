@@ -38,9 +38,11 @@ kubectl patch deploy --namespace kube-system tiller-deploy \
 
 ## Step 3: Install helm chart
 
+Run the following from the [helm-charts](../helm-charts) directory
 
 ```
-helm install -n gojek geoapi
+RELEASE_NAME=gojek
+helm install -n $RELEASE_NAME geoapi
 ```
 
 
