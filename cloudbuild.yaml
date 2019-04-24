@@ -14,7 +14,7 @@ steps:
   - image
   - deployment
   - gojek-microservice-geoapi
-  - geoapi=gcr.io/$PROJECT_ID/:geoapi-$SHORT_SHA
+  - geoapi=gcr.io/$PROJECT_ID/gojek:geoapi-$SHORT_SHA
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=asia-southeast1-b'
   - 'CLOUDSDK_CONTAINER_CLUSTER=altimit'
