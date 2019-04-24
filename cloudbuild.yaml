@@ -2,4 +2,4 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '--build-arg', 'APPDIR=geoapi', '-t', 'gcr.io/$PROJECT_ID/gojek:geoapi-$SHORT_SHA', '-t', 'gcr.io/$PROJECT_ID/gojek:geoapi', '.', '-f', 'Dockerfile.geoapi']
   dir: 'components'
-  images: ['gcr.io/$PROJECT_ID/gojek:geoapi-$SHORT_SHA', 'gcr.io/$PROJECT_ID/gojek:geoapi']
+images: ['gcr.io/$PROJECT_ID/gojek:geoapi-$SHORT_SHA', 'gcr.io/$PROJECT_ID/gojek:geoapi']
