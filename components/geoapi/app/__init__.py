@@ -18,6 +18,8 @@ from api.fare import fare
 from api.swagger import swagger
 
 
+from utils.gcs import download_blob
+
 BLUEPRINTS = [
     (trips, ['/v1']),
     (fare, ['/v1']),
@@ -28,13 +30,19 @@ BLUEPRINTS = [
 def load_total_trips():
     """loads total trips csv
     """
+    try:
+        download_blob(settings.BUCKET,
+                      "total_trips.csv.gz",
+                      join(settings.ASSETS_DIR, "total_trips.csv.gz"))
+    except:
+        logging.warning("No such csv")
 
     try:
-        df = pd.read_csv(join(settings.ASSETS_DIR, "here.csv.gzip"),
+        df = pd.read_csv(join(settings.ASSETS_DIR, "total_trips.csv.gzip"),
                          compression="gzip")
         df["date"] = pd.to_datetime(df["date"], format="%Y-%m-%d")
     except FileNotFoundError:
-        logging.info("Failed loading csv")
+        logging.warning("Failed loading csv")
         df = None
     return df
 
