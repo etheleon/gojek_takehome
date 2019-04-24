@@ -3,6 +3,7 @@
 The µservice serves 3 endpoints, each of which requires a precompute to be done and saved to GCS. Each precompute is done by a python script. 
 
 | API | Description |
+| --- | --- |
 | Total Trips | [total_trips.py](../precompute/total_trips.py) |
 | Fare Heatmeap | [fare_heatmap](../precompute/fare_heatmap.py) |
 | Average Speed | [average_speed](../precompute/average_speed.py) |
