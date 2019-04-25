@@ -2,11 +2,12 @@
 """
 
 import logging
-import os
 from os.path import join
 import re
 import time
 import uuid
+
+from dynaconf import settings
 
 import dask.dataframe as dd
 from google.cloud import bigquery
@@ -18,10 +19,7 @@ storage_client = storage.Client()  # pylint: disable=invalid-name
 logger = logging.getLogger('gojek_utils')  # pylint: disable=invalid-name
 logger.setLevel(logging.INFO)
 
-PROJECT = os.environ["GCP_PROJECT"]
-BQ_DATASET = os.environ["BIGQUERY_DATASET"]
-BUCKET_NAME = os.environ["BIGQUERY_BUCKET"]
-TEMPFILE = "gs://{BUCKET_NAME}/{FILENAME}-*.csv.gz"
+TEMPFILE = "gs://{settings.BIGQUERY_BUCKET}/{FILENAME}-*.csv.gz"
 
 
 def execute_query(query, destination_table=None, location='US'):
@@ -85,15 +83,15 @@ def save_query_to_gzip(query, location="US"):
     temp_name = str(uuid.uuid4())
 
     destination_uri = TEMPFILE.format(
-        BUCKET_NAME=BUCKET_NAME,
+        BUCKET_NAME=settings.BIGQUERY_BUCKET,
         FILENAME=temp_name)
     table_name = re.sub("-", "_", temp_name)
-    dataset_id = f"{PROJECT}.{BQ_DATASET}"
+    dataset_id = f"{settings.GCP_PROJECT}.{settings.BIGQUERY_DATASET}"
     full_id = f"{dataset_id}.{table_name}"
     dataset = bigquery.Dataset(dataset_id)
     dataset.location = location
     dataset = client.create_dataset(dataset, exists_ok=True)
-    table_ref = client.dataset(BQ_DATASET).table(table_name)
+    table_ref = client.dataset(settings.BIGQUERY_DATASET).table(table_name)
     query_completed = execute_query(query, destination_table=table_ref,
                                     location=location)
     if query_completed:
@@ -106,7 +104,19 @@ def save_query_to_gzip(query, location="US"):
 
 def get_dataframe_from_bigquery(query, is_big=False,
                                 location='US', as_pandas=False):
-    """ downloads query as pandas dataframe
+    """
+    downloads query as pandas dataframe
+
+    Example
+    ------
+    >>> from gojek.util.db import get_dataframe_from_bigquery
+    >>>
+    >>> get_dataframe_from_bigquery('''
+        SELECT *
+        FROM `bigquery-public-data.new_york_taxi_trips.tlc_green_trips_2014`
+        LIMIT 5
+        ''')
+
     """
     if is_big:
         destination_uri, full_id = save_query_to_gzip(query, location=location)
@@ -114,7 +124,7 @@ def get_dataframe_from_bigquery(query, is_big=False,
             r"\*", re.split(r"/", destination_uri).pop()
         ).pop(0)
 
-        bucket = storage_client.get_bucket(BUCKET_NAME)
+        bucket = storage_client.get_bucket(settings.BIGQUERY_BUCKET)
 
         blobs = bucket.list_blobs()
         for blob in blobs:

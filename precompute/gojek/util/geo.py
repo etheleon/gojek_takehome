@@ -3,17 +3,24 @@
 
 import gc
 
+import logging
+
 import s2sphere
 import pandas as pd
 
+LOGGER = logging.getLogger("utils")
+LOGGER.setLevel(logging.DEBUG)
 
 def latlng_to_s2cellid(lat, long):
     """
     This function converts latlng coordinates to s2cell ids
     """
-    position = s2sphere.LatLng.from_degrees(lat, long)
-    return str(s2sphere.CellId.from_lat_lng(position).parent(16))
-
+    try:
+        position = s2sphere.LatLng.from_degrees(lat, long)
+        return str(s2sphere.CellId.from_lat_lng(position).parent(16))
+    except Exception as err:
+        logger.warning(f"Error: {err}")
+        return None
 
 def compute_ave_fare(df):  # pylint: disable=invalid-name
     """ Computes ave fair
