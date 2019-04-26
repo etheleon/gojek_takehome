@@ -9,11 +9,11 @@ Each precompute is done by a python script.
 
 | API | Description |
 | --- | --- |
-| Total Trips | [precompute/total_trips.py](../precompute/total_trips.py) |
-| Fare Heatmeap | [precompute/fare_heatmap](../precompute/fare_heatmap.py) |
-| Average Speed | [precompute/average_speed](../precompute/average_speed.py) |
+| Total Trips | [precompute/00-total_trips.py](../precompute/00-total_trips.py) |
+| Fare Heatmeap | [precompute/01-fare_heatmap.py](../precompute/01-fare_heatmap.py) |
+| Average Speed | [precompute/02-average_speed.py](../precompute/02-average_speed.py) |
 
-We have also created a [utilities](../precompute/gojek/util) python module. 
+We have also created a [utilities](../precompute/gojek/util) python module. Please install it before running any of the scripts above
 
 Once the cleaned data is computed, the next step is to start serving them as a service. 
 
