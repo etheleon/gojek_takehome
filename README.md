@@ -18,7 +18,7 @@
 * [FAQ](#faq)
 
 <!-- vim-markdown-toc -->
-:
+
 
 ## Folder Organisation
 
@@ -62,7 +62,10 @@ To test the APIs you can use `kubectl` to port forward the service:
 
 #### 1. Swagger
 
-  [Swagger docs](https://swagger.io/docs/specification/2-0/what-is-swagger/) can be found hosted at the following endpoint [/v1/docs](localhost:5000/v1/docs)
+  [Swagger docs](https://swagger.io/docs/specification/2-0/what-is-swagger/) can be found hosted at the following route `/v1/docs`
+
+  [![swagger_preview](./images/swagger.png)](localhost:5000/v1/docs)
+
 
 #### 2. heartbeat
 
