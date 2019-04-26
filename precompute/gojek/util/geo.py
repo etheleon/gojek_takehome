@@ -4,44 +4,59 @@
 # import gc
 
 import logging
+import subprocess
+from tempfile import NamedTemporaryFile
 
-import s2sphere
 import pandas as pd
-from tqdm import tqdm
 
-LOGGER = logging.getLogger("utils")
+from gojek.util.db import get_dataframe_from_bigquery
+from gojek.util.misc import timeit
+
+LOGGER = logging.getLogger("geo")
 LOGGER.setLevel(logging.DEBUG)
 
 
-def latlng_to_s2cellid(lat, long):
+@timeit
+def compute_s2id(df, color, year):
+    """ Computes s2id from latlng
     """
-    This function converts latlng coordinates to s2cell ids
-    """
-    try:
-        position = s2sphere.LatLng.from_degrees(lat, long)
-        return str(s2sphere.CellId.from_lat_lng(position).parent(16))
-    except Exception as err:  # pylint: disable=broad-except
-        # LOGGER.warning(f"Error: {err}")
-        return None
+    LOGGER.info(f"Processing: {color} {year}")
+    date_latlng_fare = NamedTemporaryFile().name
+    date_s2id_fare = NamedTemporaryFile().name
+    df.to_csv(date_latlng_fare, index=False)
+    with open(date_s2id_fare, "w") as fh:
+        subprocess.call(["latlng2s2", date_latlng_fare], stdout=fh)
+    return pd.read_csv(date_s2id_fare, header=None,
+                       names=["date", "s2id", "total_amount"])
 
 
-def compute_ave_fare(df):  # pylint: disable=invalid-name
-    """ Computes ave fair
-    Things to do:
-    1. I need to know the memory consumption
-    2. I need to know the intermediate memory consumption
+def compute_ave_fare(table, year, color):
+    """computes ave fare per s2 cell
     """
-    latlongs = []
-    for _, row in tqdm(df.iterrows(), total=df.shape[0], desc="LatLong"):
-        latlongs.append(latlng_to_s2cellid(row.pickup_latitude,
-                                           row.pickup_longitude))
-    cellids = pd.Series(latlongs, dtype="category")
-    del latlongs
-    # gc.collect()
-    # return (df
-    #         .loc[:, ["date", "total_amount"]]
-    #         .assign(cellid=cellids)
-    #         .groupby(["date", "cellid"])
-    #         .mean()
-    #         .dropna())
-    return cellids
+
+    query = '''
+    SELECT
+        cast(pickup_datetime AS date) AS date,
+        pickup_latitude,
+        pickup_longitude,
+        total_amount
+    FROM
+        `{TABLE}`
+    WHERE
+        pickup_latitude IS NOT NULL
+        AND pickup_longitude IS NOT NULL
+        AND total_amount IS NOT NULL
+            '''.format(TABLE=table)
+
+    df = get_dataframe_from_bigquery(query, multipart=True)
+
+    if df.empty:
+        raise Exception("no records")
+
+    (compute_s2id(df, color, year)
+     .groupby(["date", "s2id"])
+     .mean()
+     .dropna()
+     .reset_index()
+     .rename({"total_amount": "ave_fare"})
+     .to_csv(f"{color}-{year}.csv.gz", compression="gzip", index=False))

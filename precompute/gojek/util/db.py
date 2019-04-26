@@ -101,7 +101,7 @@ def save_query_to_gzip(query, location="US"):
     return None, None
 
 
-def get_dataframe_from_bigquery(query, is_big=False,
+def get_dataframe_from_bigquery(query, multipart=False,
                                 location='US', as_pandas=False):
     """
     downloads query as pandas dataframe
@@ -117,7 +117,7 @@ def get_dataframe_from_bigquery(query, is_big=False,
         ''')
 
     """
-    if is_big:
+    if multipart:
         destination_uri, full_id = save_query_to_gzip(query, location=location)
         regex_pattern = re.split(
             r"\*", re.split(r"/", destination_uri).pop()
@@ -135,6 +135,7 @@ def get_dataframe_from_bigquery(query, is_big=False,
         print(regex_pattern)
         query_df = dd.read_csv(join("/tmp", f"{regex_pattern}*"),
                                compression='gzip', blocksize=None)
+        query_df = query_df.compute()
         if as_pandas:
             query_df = query_df.as_pandas()
         client.delete_table(full_id, not_found_ok=True)
