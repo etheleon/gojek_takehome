@@ -2,14 +2,14 @@
 
 # Takehome Solution
 
-The intructions for this takehome test can be found in the [INSTRUCTIONS.md](./INSTRUCTIONS.md) file.
-
-
 <!-- vim-markdown-toc GFM -->
 
   * [Folder Organisation](#folder-organisation)
   * [Getting Started](#getting-started)
-  * [Endpoints](#endpoints)
+    * [Connecting to service](#connecting-to-service)
+      * [[Option 1] Port Forwarding](#option-1-port-forwarding)
+      * [[Option 2] Directly Querying the public IP](#option-2-directly-querying-the-public-ip)
+    * [Querying endpoints](#querying-endpoints)
       * [1. Swagger](#1-swagger)
       * [2. heartbeat](#2-heartbeat)
       * [3. Total Trips](#3-total-trips)
@@ -18,6 +18,7 @@ The intructions for this takehome test can be found in the [INSTRUCTIONS.md](./I
 * [FAQ](#faq)
 
 <!-- vim-markdown-toc -->
+:
 
 ## Folder Organisation
 
@@ -36,11 +37,11 @@ As well as standalone files:
 
 ## Getting Started
 
-Read the [installation guide](./docs/00-introduction.md) for instructions on setting up the microservice on Google Cloud Platform.
+The µservice has been setup on Google Cloud Platform, accessing the service either will require one to port forward traffic to the K8S cluster or directly query the public endpoint
 
-## Endpoints
+### Connecting to service
 
-  ### Port Forwarding
+#### [Option 1] Port Forwarding
 
 To test the APIs you can use `kubectl` to port forward the service:
 
@@ -50,6 +51,14 @@ To test the APIs you can use `kubectl` to port forward the service:
 
   > **NOTE**: Set `KUBECONFIG` ENV VAR as the path where `.kubeconfig` (included in submission email).
 
+
+> To recreate the service follow the [installation guide](./docs/00-introduction.md).
+
+#### [Option 2] Directly Querying the public IP
+
+  We are using GCP's public loadbalancer for this serivce which can be found at _______.
+
+### Querying endpoints
 
 #### 1. Swagger
 
