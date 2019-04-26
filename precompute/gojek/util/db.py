@@ -19,8 +19,7 @@ storage_client = storage.Client()  # pylint: disable=invalid-name
 logger = logging.getLogger('gojek_utils')  # pylint: disable=invalid-name
 logger.setLevel(logging.INFO)
 
-TEMPFILE = "gs://{settings.BIGQUERY_BUCKET}/{FILENAME}-*.csv.gz"
-
+TEMPFILE = "gs://{BUCKET}/{FILENAME}-*.csv.gz"
 
 def execute_query(query, destination_table=None, location='US'):
     """
@@ -83,7 +82,7 @@ def save_query_to_gzip(query, location="US"):
     temp_name = str(uuid.uuid4())
 
     destination_uri = TEMPFILE.format(
-        BUCKET_NAME=settings.BIGQUERY_BUCKET,
+        BUCKET=settings.BIGQUERY_BUCKET,
         FILENAME=temp_name)
     table_name = re.sub("-", "_", temp_name)
     dataset_id = f"{settings.GCP_PROJECT}.{settings.BIGQUERY_DATASET}"
@@ -141,4 +140,5 @@ def get_dataframe_from_bigquery(query, is_big=False,
         client.delete_table(full_id, not_found_ok=True)
     else:
         query_df = client.query(query).to_dataframe()
+
     return query_df
