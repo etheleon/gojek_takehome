@@ -1,9 +1,11 @@
 """API for total trips
 """
 
-import json
-
-from flask import Blueprint, current_app
+from flask import (
+    Blueprint,
+    current_app,
+    jsonify
+)
 import pandas as pd
 
 from webargs import fields
@@ -25,13 +27,13 @@ def get_trips(args):
         """Format days"""
         return series.apply(lambda day: day.strftime("%Y-%m-%d"))
 
-    firstdate = pd.to_datetime(args["start"]).date()
-    lastdate = pd.to_datetime(args["end"]).date()
+    firstdate = pd.to_datetime(args["start"]).date()  # noqa: F841
+    lastdate = pd.to_datetime(args["end"]).date()  # noqa: F841
     all_trips = (current_app.trips["total_trips"]
                  .query('@firstdate <= date < @lastdate')
                  .loc[:, ['date', 'total_trips']]
                  .assign(date=lambda df: format_date(df["date"])))
-    return json.dumps(all_trips.to_dict(orient='records'))
+    return jsonify(all_trips.to_dict(orient='records'))
 
 
 @trips.route('/average_speed_24hrs')
@@ -41,5 +43,7 @@ def get_trips(args):
 def get_ave_speed(args):
     """Returns average speed of vehicles in a day
     """
-    mock_output = [{"average_speed": 24.7}]
-    return json.dumps(mock_output)
+    date = args["date"]  # pylint: disable=unused-variable
+    records = current_app.trips["speed"].query("date == @date")
+    # mock_output = [{"average_speed": 24.7}]
+    return jsonify(records)

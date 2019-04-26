@@ -1,11 +1,11 @@
 """Returns fare
 """
 
-
-import json
-
-from flask import Blueprint, current_app
-import pandas as pd
+from flask import (
+    Blueprint,
+    current_app,
+    jsonify
+)
 
 from webargs import fields
 from webargs.flaskparser import use_args
@@ -21,25 +21,8 @@ def get_average_fare(args):
     """fare heatmap
     """
 
-    date = pd.to_datetime(args["date"]).date()
-    # current_app.fare
-
-    mock_output = [
-      {
-         "s2id":"951977d37",
-         "fare":13.21
-      },
-      {
-         "s2id":"951977d39",
-         "fare":4.32
-      },
-      {
-         "s2id":"951977d40",
-         "fare":5.43
-      },
-      {
-         "s2id":"951978321",
-         "fare":9.87
-      }
-    ]
-    return json.dumps(mock_output)
+    date = args["date"]   # noqa: F841
+    records = (current_app.fare["heatmap"]
+               .query('date == @date')
+               .loc[:, ["si2d", "total_amount"]])
+    return jsonify(records.to_dict(orient='records'))
