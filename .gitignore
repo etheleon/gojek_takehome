@@ -1,2 +1,7 @@
 .DS_Store
 tags
+tags.lock
+*.csv.gz
+*.csv.gzip
+__pycache__
+.ipynb_checkpoints
