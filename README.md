@@ -37,7 +37,7 @@ As well as standalone files:
 
 ## Getting Started
 
-The µservice has already been setup on Google Cloud Platform, skip ahead to **Connecting to service** to try endpoints, else you can set up your own service by following the following installation guide.
+The µservice has already been setup on Google Cloud Platform, skip ahead to **Connecting to service** to try endpoints, else you can set up your own service following installation guide below.
 
 ### Installation Guide
 
