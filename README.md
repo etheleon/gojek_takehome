@@ -6,6 +6,7 @@
 
   * [Folder Organisation](#folder-organisation)
   * [Getting Started](#getting-started)
+    * [Setting up the service](#setting-up-the-service)
     * [Connecting to service](#connecting-to-service)
       * [[Option 1] Port Forwarding](#option-1-port-forwarding)
       * [[Option 2] Directly Querying the public IP](#option-2-directly-querying-the-public-ip)
@@ -18,7 +19,6 @@
 * [FAQ](#faq)
 
 <!-- vim-markdown-toc -->
-
 
 ## Folder Organisation
 
@@ -39,6 +39,10 @@ As well as standalone files:
 
 The µservice has been setup on Google Cloud Platform, accessing the service either will require one to port forward traffic to the K8S cluster or directly query the public endpoint
 
+### Setting up the service
+
+Follow the [installation guide](./docs/00-introduction.md). We will be using terraform to set up a mananged K8S cluster on GCP, and install the µserice application using helm. continuous deployment is managed by cloudbuild.
+
 ### Connecting to service
 
 #### [Option 1] Port Forwarding
@@ -52,7 +56,6 @@ To test the APIs you can use `kubectl` to port forward the service:
   > **NOTE**: Set `KUBECONFIG` ENV VAR as the path where `.kubeconfig` (included in submission email).
 
 
-> To recreate the service follow the [installation guide](./docs/00-introduction.md).
 
 #### [Option 2] Directly Querying the public IP
 
