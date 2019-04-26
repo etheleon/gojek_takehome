@@ -10,12 +10,12 @@
     * [Connecting to service](#connecting-to-service)
       * [[Option 1] Port Forwarding](#option-1-port-forwarding)
       * [[Option 2] Directly Querying the public IP](#option-2-directly-querying-the-public-ip)
-    * [Querying endpoints](#querying-endpoints)
-      * [1. Swagger](#1-swagger)
-      * [2. heartbeat](#2-heartbeat)
-      * [3. Total Trips](#3-total-trips)
-      * [4. Fare Heatmap](#4-fare-heatmap)
-      * [5. Average Speed](#5-average-speed)
+    * [Swagger: API documentation](#swagger-api-documentation)
+    * [Heartbeat / Healthcheck](#heartbeat--healthcheck)
+    * [Endpoints](#endpoints)
+      * [1. Total Trips](#1-total-trips)
+      * [2. Fare Heatmap](#2-fare-heatmap)
+      * [3. Average Speed](#3-average-speed)
 * [FAQ](#faq)
 
 <!-- vim-markdown-toc -->
@@ -61,16 +61,15 @@ To test the APIs you can use `kubectl` to port forward the service to your local
 
   We are using GCP's public loadbalancer for this serivce which can be found at _______. So you can replace `localhost:5000` with __________
 
-### Querying endpoints
 
-#### 1. Swagger
+### Swagger: API documentation
 
   [Swagger docs](https://swagger.io/docs/specification/2-0/what-is-swagger/) can be found hosted at the following route `/v1/docs`
 
   [![swagger_preview](./images/swagger.png)](localhost:5000/v1/docs)
 
 
-#### 2. heartbeat
+### Heartbeat / Healthcheck
 
   Livenes and Readiness probes are pointed at this endpoint
 
@@ -78,7 +77,9 @@ To test the APIs you can use `kubectl` to port forward the service to your local
   $ curl localhost:5000/heartbeat
   ```
 
-#### 3. Total Trips
+### Endpoints
+
+#### 1. Total Trips
 
 
   Returns the #trips for within a period. Date given in `%Y-%m-%d` format
@@ -87,7 +88,7 @@ To test the APIs you can use `kubectl` to port forward the service to your local
   $ curl "localhost:5000/v1/total_trips?start=${START_DATE}&end=${END_DATE}"
   ```
 
-#### 4. Fare Heatmap
+#### 2. Fare Heatmap
 
   Returns the average fare in a given S2 Cell
 
@@ -95,7 +96,7 @@ To test the APIs you can use `kubectl` to port forward the service to your local
   $ curl "localhost:5000/v1/average_fare_heatmap?date=${DATE}"
   ```
 
-#### 5. Average Speed
+#### 3. Average Speed
 
   Returns the average speed for a given day
 
