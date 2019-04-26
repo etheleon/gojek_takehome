@@ -23,8 +23,41 @@ To achieve CD, our [cloudbuild.yaml](../cloudbuild.yaml) has two steps, the firs
 
 ### Publishing image 
 
+```
+...
+- name: 'gcr.io/cloud-builders/docker'
+  args: [
+    'build',
+    '--build-arg', 'APPDIR=geoapi',
+    '-t', 'gcr.io/$PROJECT_ID/gojek:geoapi-$SHORT_SHA',
+    '-t', 'gcr.io/$PROJECT_ID/gojek:geoapi',
+    '.', '-f', 'Dockerfile.geoapi'
+    ]
+  dir: 'components'
+...
+images:
+  - 'gcr.io/$PROJECT_ID/gojek:geoapi-$SHORT_SHA'
+  - 'gcr.io/$PROJECT_ID/gojek:geoapi'
+```
+
+
 `Docker` is used to build image file based on [Dockerfile.geoapi](../components/Dockerfile.geoapi) and is tagged with two separate tags `geoapi` and `geoapi-$SHORT_SHA`. The latter is used for rollbacks and updating the current image. The former is used when a complete reinstall of the application is required.
 
 ### Deployment
+
+```
+...
+- name: 'gcr.io/cloud-builders/kubectl'
+  args:
+  - set
+  - image
+  - deployment
+  - gojek-microservice-geoapi
+  - geoapi=gcr.io/$PROJECT_ID/gojek:geoapi-$SHORT_SHA
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=asia-southeast1-b'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=altimit'
+...
+```
 
 `kubectl` is used for updating the image for the deployment `geojek-microservice-geoapi`
