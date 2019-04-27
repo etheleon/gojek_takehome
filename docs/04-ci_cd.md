@@ -1,6 +1,6 @@
 # Continuous Deployment
 
-We will be using [cloud build](https://cloud.google.com/cloud-build/) to redeploy our application upon any changes commited to this respository.
+We will be using [cloud build](https://cloud.google.com/cloud-build/) to couple git commits to application deployment.
 
 > We are not running any tests for this takehome
 
