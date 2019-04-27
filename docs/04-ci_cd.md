@@ -43,6 +43,7 @@ images:
   - 'gcr.io/$PROJECT_ID/gojek:geoapi'
 ```
 
+![tags](../images/tags.png)
 
 `Docker` is used to build image file based on [Dockerfile.geoapi](../components/Dockerfile.geoapi) and is tagged with two separate tags `geoapi` and `geoapi-$SHORT_SHA`. The latter is used for rollbacks and updating the current image. The former is used when a complete reinstall of the application is required.
 
