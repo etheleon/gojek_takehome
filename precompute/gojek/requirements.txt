@@ -1,0 +1,6 @@
+dynaconf==2.0.1
+dask==1.2.0
+google-cloud-bigquery==1.11.2
+google-cloud-storage==1.15.0
+pandas==0.23.4
+
