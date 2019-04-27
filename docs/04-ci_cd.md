@@ -64,3 +64,11 @@ images:
 ```
 
 `kubectl` is used for updating the image for the deployment `geojek-microservice-geoapi`
+
+## Rollback
+
+You can utilise `kubectl` to rollback to a particular commit using the set command
+
+```bash
+$ kubectl set image deployment gojek-microservice-geoapi geoapi=gcr.io/$PROJECT_ID/gojek:geoapi-$SHORT_SHA --record=true
+```
