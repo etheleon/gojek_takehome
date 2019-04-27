@@ -2,5 +2,6 @@
 README.md
 setup.cfg
 setup.py
-bin/latlng2s2
 gojek/__init__.py
+gojek/latlng2s2/parse_latlong.go
+gojek/latlng2s2/darwin/bin/latlng2s2

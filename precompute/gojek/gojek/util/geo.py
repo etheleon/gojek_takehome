@@ -2,12 +2,14 @@
 """
 
 # import gc
-
+import os
 import logging
 import subprocess
 from tempfile import NamedTemporaryFile
 
 import pandas as pd
+
+import pkg_resources
 
 from gojek.util.db import get_dataframe_from_bigquery
 from gojek.util.misc import timeit
@@ -15,6 +17,7 @@ from gojek.util.misc import timeit
 LOGGER = logging.getLogger("geo")
 LOGGER.setLevel(logging.DEBUG)
 
+LATLNG2S2_PATH = pkg_resources.resource_filename('gojek', 'latlng2s2/darwin/bin/latlng2s2')
 
 @timeit
 def compute_s2id(df, color, year):
@@ -25,7 +28,7 @@ def compute_s2id(df, color, year):
     date_s2id_fare = NamedTemporaryFile().name
     df.to_csv(date_latlng_fare, index=False)
     with open(date_s2id_fare, "w") as fh:
-        subprocess.call(["latlng2s2", date_latlng_fare], stdout=fh)
+        subprocess.call([LATLNG2S2_PATH, date_latlng_fare], stdout=fh)
     return pd.read_csv(date_s2id_fare, header=None,
                        names=["date", "s2id", "total_amount"])
 

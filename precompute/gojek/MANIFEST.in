@@ -1,1 +1,4 @@
 include README.md
+include gojek/latlng2s2/parse_latlong.go
+include gojek/latlng2s2/darwin/bin/latlng2s2
+include gojek/util/*
