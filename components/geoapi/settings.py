@@ -11,5 +11,5 @@ ASSETS = {
     "BUCKET": os.environ.get("ASSSETS_BUCKET", "geoapi-assets"),
     "LOCAL_DIR": os.environ.get("ASSETS_DIR", "/geoapi/app/assets"),
     "TOTAL_TRIPS": os.environ.get("TOTAL_TRIPS", "total_trips.csv.gz"),
-    "FARE": os.environ.get("TOTAL_TRIPS", "fare_heatmap.csv.gz")
+    "FARE": os.environ.get("FARE", "fare_heatmap.csv.gz")
 }

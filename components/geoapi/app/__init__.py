@@ -57,7 +57,7 @@ def load_fare():
         download_blob(settings.ASSETS.BUCKET,
                       settings.ASSETS.FARE,
                       join(settings.ASSETS.LOCAL_DIR,
-                           settings.ASSETS.ASSETS.FARE))
+                           settings.ASSETS.FARE))
     except Exception as err:  # pylint: disable=broad-except
         LOGGER.warning(f"Failed Downloading Fare: {err}")
     try:
