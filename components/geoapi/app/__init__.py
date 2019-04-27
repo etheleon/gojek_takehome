@@ -50,17 +50,37 @@ def load_total_trips():
         df = None
     return df
 
+def load_fare()
+    """loads fare prices
+    """
+    try:
+        download_blob(settings.ASSETS.BUCKET,
+                      settings.ASSETS.FARE,
+                      join(settings.ASSETS.LOCAL_DIR,
+                           settings.ASSETS.ASSETS.FARE))
+    except Exception as err:  # pylint: disable=broad-except
+        LOGGER.warning(f"Failed Downloading Fare: {err}")
+    try:
+        df = pd.read_csv(join(settings.ASSETS.LOCAL_DIR,
+                              settings.ASSETS.FARE),
+                         compression="gzip")
+        df["date"] = pd.to_datetime(df["date"], format="%Y-%m-%d")
+    except FileNotFoundError as err:
+        LOGGER.warning(f"Failed reading fare data: {err}")
+        df = None
+    return df
 
 def create_app():
     """Application Factory"""
     app = Flask(__name__,
                 static_url_path="/static")
 
-    df = load_total_trips()
     app.trips = {
-        "total_trips": df
+        "total_trips": load_total_trips()
     }
-
+    app.fare = {
+        "heatmap" : load_fare()
+    }
     app.register_blueprint(heartbeat)
 
     # Additional
