@@ -81,19 +81,19 @@ curl http://${URL}:${PORT}/average_fare_heatmap?date=${DATE}
    "data":[
       {
          "s2id":"951977d37",
-         "fare":13.21
+         "fare": 13.21
       },
       {
          "s2id":"951977d39",
-         "fare":4.32
+         "fare": 4.32
       },
       {
          "s2id":"951977d40",
-         "fare":5.43
+         "fare": 5.43
       },
       {
          "s2id":"951978321",
-         "fare":9.87
+         "fare": 9.87
       }
    ]
 }
@@ -113,7 +113,7 @@ curl http://${URL}:${PORT}/average_speed_24hrs?date=${DATE}
 {
    "data":[
       {
-         "average_speed":24.7
+         "average_speed": 24.7
       }
    ]
 }

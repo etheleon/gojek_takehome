@@ -1,8 +1,8 @@
 # Continuous Deployment
 
-We will be using [cloud build](https://cloud.google.com/cloud-build/) to redeploy our application upon any changes commited to this respository. 
+We will be using [cloud build](https://cloud.google.com/cloud-build/) to redeploy our application upon any changes commited to this respository.
 
-> We are not running any tests for this takehome 
+> We are not running any tests for this takehome
 
 ## Prerequisites
 
@@ -21,7 +21,10 @@ gcloud projects add-iam-policy-binding $PROJECT \
 
 To achieve CD, our [cloudbuild.yaml](../cloudbuild.yaml) has two steps, the first builds the image and publishes this to Google Container Registry with the shorted SHA as the tag while the deployment step using the `kubectl` to upgrade the image tag of the deployment.
 
-### Publishing image 
+
+![cloudbuild](../images/builds.png)
+
+### Publishing image
 
 ```
 ...
