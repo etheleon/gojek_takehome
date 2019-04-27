@@ -101,7 +101,7 @@ To test the APIs you can use `kubectl` to port forward the service to your local
   Returns the average speed for a given day
 
   ```bash
-  $ curl "localhost:5000/v1/average_speed_24hrs?date=${DATE}"
+  $ curl "localhost:5000/v1/average_speed_24hrs?date=2015-01-03"
   ```
 
 # FAQ
