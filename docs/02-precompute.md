@@ -2,7 +2,7 @@
 
 The µservice serves 3 endpoints, each of which requires a precompute to be done and saved to GCS. 
 
-We initially carried out the extraction in Jupyter, the notebook is found at [precompute/API.ipynb](../precompute/API.ipynb)
+We initially carried out the extraction in Jupyter, the notebook is found at [precompute/APIs.ipynb](../precompute/APIs.ipynb)
 
 
 Each precompute is done by a python script. 
