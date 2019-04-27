@@ -50,7 +50,7 @@ def load_total_trips():
         df = None
     return df
 
-def load_fare()
+def load_fare():
     """loads fare prices
     """
     try:
