@@ -85,7 +85,7 @@ To test the APIs you can use `kubectl` to port forward the service to your local
   Returns the #trips for within a period. Date given in `%Y-%m-%d` format
 
   ```bash
-  $ curl "localhost:5000/v1/total_trips?start=${START_DATE}&end=${END_DATE}"
+  $ curl "localhost:5000/v1/total_trips?start=2015-01-01&end=2015-01-15"
   ```
 
 #### 2. Fare Heatmap
@@ -93,7 +93,7 @@ To test the APIs you can use `kubectl` to port forward the service to your local
   Returns the average fare in a given S2 Cell
 
   ```bash
-  $ curl "localhost:5000/v1/average_fare_heatmap?date=${DATE}"
+  $ curl "localhost:5000/v1/average_fare_heatmap?date=2015-01-02"
   ```
 
 #### 3. Average Speed

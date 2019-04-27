@@ -24,5 +24,5 @@ def get_average_fare(args):
     date = args["date"]   # noqa: F841
     records = (current_app.fare["heatmap"]
                .query('date == @date')
-               .loc[:, ["si2d", "total_amount"]])
+               .loc[:, ["s2id", "total_amount"]])
     return jsonify(records.to_dict(orient='records'))
