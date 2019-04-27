@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 """ Downloads and formats data for API 1: TOTALTRIPS
 """
 

@@ -11,7 +11,6 @@ Before running the module please remember to set the ENV variable `SETTINGS_FILE
 
 ### Installing dependencies
 
-`
 ```
 pip install -r requirements.txt
 python setup.py install
@@ -19,3 +18,9 @@ python setup.py install
 
 
 ### Installing the module
+
+run the following command from this directory
+
+```
+pip install .
+```
