@@ -46,4 +46,4 @@ def get_ave_speed(args):
     date = args["date"]  # pylint: disable=unused-variable
     records = current_app.trips["ave_speed"].query("date == @date")
     # mock_output = [{"average_speed": 24.7}]
-    return jsonify(records)
+    return jsonify(records.to_dict(orient='records'))
