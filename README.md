@@ -56,11 +56,9 @@ To test the APIs you can use `kubectl` to port forward the service to your local
   > **NOTE**: export `KUBECONFIG` ENV VAR pointing to credentials (`.kubeconfig`) included in submission email. Or use your own if you've set up your own cluster.
 
 
-
 #### [Option 2] Directly Querying the public IP
 
-  We are using GCP's public loadbalancer for this serivce which can be found at _______. So you can replace `localhost:5000` with __________
-
+  We are using static global IP for this serivce found at 34.96.118.232. (Ingress). So you can replace `localhost:5000` with 34.96.118.232.
 
 ### Swagger: API documentation
 

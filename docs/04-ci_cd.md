@@ -73,3 +73,5 @@ You can utilise `kubectl` to rollback to a particular commit using the set comma
 ```bash
 $ kubectl set image deployment gojek-microservice-geoapi geoapi=gcr.io/$PROJECT_ID/gojek:geoapi-$SHORT_SHA --record=true
 ```
+
+Next: [Exposing the service](05-serving.md)
