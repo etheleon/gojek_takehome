@@ -10,6 +10,10 @@ resource "google_storage_bucket" "gojek-geoapi-assets" {
   name     = "geoapi-assets"
 }
 
+resource "google_compute_address" "ip_address" {
+  name = "gojek-ip"
+}
+
 resource "google_container_cluster" "gojek" {
 	name               = "${var.gke_cluster_name}"
 	network            = "default"
@@ -70,6 +74,13 @@ resource "google_container_node_pool" "compute_pool" {
   node_config{
     machine_type = "n1-highmem-16"
   }
+
+  oauth_scopes = [
+    "https://www.googleapis.com/auth/logging.write",
+    "https://www.googleapis.com/auth/monitoring",
+    "https://www.googleapis.com/auth/compute",
+    "https://www.googleapis.com/auth/devstorage.read_only",
+  ]
 }
 
 resource "google_container_node_pool" "gpu_pool" {
@@ -90,4 +101,11 @@ resource "google_container_node_pool" "gpu_pool" {
       count = 1
     }
   }
+
+  oauth_scopes = [
+    "https://www.googleapis.com/auth/logging.write",
+    "https://www.googleapis.com/auth/monitoring",
+    "https://www.googleapis.com/auth/compute",
+    "https://www.googleapis.com/auth/devstorage.read_only",
+  ]
 }

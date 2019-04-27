@@ -21,3 +21,7 @@ output "gpu_pool_version" {
 output "compute_pool_version" {
   value = "${google_container_node_pool.compute_pool.version}"
 }
+
+output "service_ip" {
+  value = "${google_compute_address.ip_address.name}"
+}
