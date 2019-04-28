@@ -15,7 +15,7 @@ fare = Blueprint('fare', __name__)  # pylint: disable=invalid-name
 
 @fare.route("/average_fare_heatmap")
 @use_args({
-    "date": fields.Str(missing='2016-01-01'),  # pylint: disable=E1101
+    "date": fields.DateTime(format='%Y-%m-%d', missing='2016-01-01'),  # pylint: disable=E1101
 })  # pylint: disable=E1101
 def get_average_fare(args):
     """fare heatmap
