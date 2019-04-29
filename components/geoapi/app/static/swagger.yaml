@@ -24,7 +24,6 @@ paths:
       - "Trip"
       summary: "Number of Trips per day"
       description: "Given the date in `YYYY-MM-DD` format get the total number of trips"
-      operationId: "addPet"
       parameters:
       - in: "query"
         name: "start_date"
@@ -68,7 +67,7 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/totaltrips"
+              $ref: "#/definitions/fareheatmap"
         400:
           description: "Invalid status value"
   /average_speed_24hrs:
@@ -92,7 +91,7 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/totaltrips"
+              $ref: "#/definitions/averagespeed"
         400:
           description: "Invalid tag value"
 definitions:
@@ -105,8 +104,25 @@ definitions:
       totaltrips:
         type: "integer"
         example: 321
-    xml:
-      name: "Pet"
+  fareheatmap:
+    type: "object"
+    properties:
+      date:
+        type: "string"
+        example: "2019-01-01"
+      fare:
+        type: "number"
+        example: 15.6
+  averagespeed:
+    type: "object"
+    properties:
+      date:
+        type: "string"
+        example: "2019-01-01"
+      average_speed:
+        type: "number"
+        example: 0.321
 externalDocs:
   description: "Find out more about Swagger"
   url: "http://swagger.io"
+
