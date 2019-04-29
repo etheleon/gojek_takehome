@@ -2,6 +2,8 @@
 
 To calculate the data to be served, install the [package: gojek](./gojek)
 
+## Running this locally
+
 ```
 Usage:          gojek
                 gojek average-speed
@@ -11,6 +13,8 @@ Usage:          gojek
 
 
 For more details read the [docs: 02-precompute.md](../docs/02-precompute.md).
+
+## Docker
 
 ```bash
 docker run --rm \
