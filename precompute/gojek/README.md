@@ -24,12 +24,3 @@ run the following command from this directory
 ```
 pip install .
 ```
-
-### docker
-
-```
-docker run --rm \
-  -v $PATH_TO_CREDS:/creds \
-  -v $PATH_TO_SETTINGS:/settings \
-  gcr.io/${PROJECT_ID}/gojek:gojek-compute \
-  get_trips
