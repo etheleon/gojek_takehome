@@ -11,9 +11,6 @@ Usage:          gojek
                 gojek trips-per-day
 ```
 
-
-For more details read the [docs: 02-precompute.md](../docs/02-precompute.md).
-
 ## Docker
 
 ```bash
