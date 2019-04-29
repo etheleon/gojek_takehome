@@ -3,4 +3,4 @@ dask==1.2.0
 google-cloud-bigquery==1.11.2
 google-cloud-storage==1.15.0
 pandas==0.23.4
-
+fire==0.1.3

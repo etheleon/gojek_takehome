@@ -94,7 +94,7 @@ def save_query_to_gzip(query, location="US"):
     query_completed = execute_query(query, destination_table=table_ref,
                                     location=location)
     if query_completed:
-        table_saved = save_table_to_gcs(table_ref, destination_uri,
+        table_saved = save_table_to_gcs(table_ref = table_ref, destination_uri = destination_uri,
                                         location=location)
     if table_saved:
         return destination_uri, full_id
@@ -131,8 +131,6 @@ def get_dataframe_from_bigquery(query, multipart=False,
                 file = join("/tmp", blob.name)
                 blob.download_to_filename(file)
                 blob.delete()
-
-        print(regex_pattern)
         query_df = dd.read_csv(join("/tmp", f"{regex_pattern}*"),
                                compression='gzip', blocksize=None)
         query_df = query_df.compute()

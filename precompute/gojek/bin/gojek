@@ -1,0 +1,10 @@
+#!/usr/bin/env python
+"""basic qubole functionality
+"""
+
+import fire
+from gojek import Compute
+
+
+if __name__ == '__main__':
+    fire.Fire(Compute)

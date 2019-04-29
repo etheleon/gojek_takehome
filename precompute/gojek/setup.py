@@ -13,6 +13,7 @@ setup(
     author='Wesley Goi',
     author_email='etheleon@protonmail.com',
     packages=find_packages(),
+    scripts = ['bin/gojek'],
     description='For calculating API input',
     long_description=long_description,
     long_description_content_type='text/markdown',
