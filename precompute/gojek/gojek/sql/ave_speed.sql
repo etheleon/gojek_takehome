@@ -1,10 +1,3 @@
-#!/usr/bin/env python
-
-""" Downloads and formats data for API 3
-
-from gojek.util.db import get_dataframe_from_bigquery
-
-ave_speed_df = get_dataframe_from_bigquery("""
 WITH temp as (
 SELECT
     DATE(dropoff_datetime) as date,
@@ -38,6 +31,3 @@ SELECT
 FROM temp
 GROUP BY date
 ORDER BY date
-""", multipart=True)
-
-ave_speed_df.to_csv("data/trip_ave_speed.csv.bz2")

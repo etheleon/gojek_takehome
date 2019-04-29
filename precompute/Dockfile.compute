@@ -1,0 +1,14 @@
+FROM etheleon/data-science:deepcpu
+
+COPY gojek/requirements.txt .
+RUN pip install -r requirements.txt
+
+COPY gojek /tmp/gojek
+WORKDIR /tmp/gojek
+
+RUN pip install .
+ 
+ENV SETTINGS_FILE_FOR_DYNACONF /settings/settings.py
+ENV GOOGLE_APPLICATION_CREDENTIALS /creds/serviceaccount.json
+ 
+ ENTRYPOINT ["gojek"]
