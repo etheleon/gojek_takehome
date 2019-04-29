@@ -20,8 +20,8 @@ def format_date(series):
 
 @trips.route('/total_trips')
 @use_args({
-    "start": fields.Str(missing='2016-01-01'),  # pylint: disable=no-member
-    "end": fields.Str(missing='2016-01-10')  # pylint: disable=no-member
+    "start": fields.Date(missing='2016-01-01', format='%Y-%m-%d'),  # pylint: disable=no-member
+    "end": fields.Date(missing='2016-01-10', format='%Y-%m-%d')  # pylint: disable=no-member
 })  # pylint: disable=E1101
 def get_trips(args):
     """Returns total trips
@@ -39,7 +39,7 @@ def get_trips(args):
 
 @trips.route('/average_speed_24hrs')
 @use_args({
-    "date": fields.Str(missing='2016-01-01'),  # pylint: disable=no-member
+    "date": fields.Date(format='%Y-%m-%d', missing='2016-01-01'),  # pylint: disable=no-member
 })
 def get_ave_speed(args):
     """Returns average speed of vehicles in a day

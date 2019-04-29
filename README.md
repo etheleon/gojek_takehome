@@ -66,6 +66,7 @@ To test the APIs you can use `kubectl` to port forward the service to your local
 
   [![swagger_preview](./images/swagger.png)](localhost:5000/v1/docs)
 
+> NOTE: If you're viewing this from the static IP please replace localhost with 34.96.118.23
 
 ### Heartbeat / Healthcheck
 
