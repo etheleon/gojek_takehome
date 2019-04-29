@@ -1,6 +1,6 @@
 # Introduction
 
-To calculate the data to be served, install the package 
+To calculate the data to be served, install the [package: gojek](./gojek)
 
 ```
 Usage:          gojek
