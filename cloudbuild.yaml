@@ -1,4 +1,12 @@
 steps:
+- name 'gcr.io/cloud-builders/docker'
+  args: [
+   'build'
+   '-t', 'gcr.io/$PROJECT_ID/gojek:compute-$SHORT_SHA',
+   '-t', 'gcr.io/$PROJECT_ID/gojek:compute',
+   '.', '-f', 'Dockerfile.compute'
+  ]
+  dir: 'precompute'
 - name: 'gcr.io/cloud-builders/docker'
   args: [
     'build',
@@ -21,3 +29,5 @@ steps:
 images:
   - 'gcr.io/$PROJECT_ID/gojek:geoapi-$SHORT_SHA'
   - 'gcr.io/$PROJECT_ID/gojek:geoapi'
+  - 'gcr.io/$PROJECT_ID/gojek:compute-$SHORT_SHA'
+  - 'gcr.io/$PROJECT_ID/gojek:compute'
