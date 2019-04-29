@@ -11,4 +11,4 @@ RUN pip install .
 ENV SETTINGS_FILE_FOR_DYNACONF /settings/settings.py
 ENV GOOGLE_APPLICATION_CREDENTIALS /creds/serviceaccount.json
  
- ENTRYPOINT ["gojek"]
+ENTRYPOINT ["gojek"]
