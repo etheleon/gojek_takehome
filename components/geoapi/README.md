@@ -16,7 +16,7 @@ This webservice is modelled closely after [12 Factor application](https://12fact
 * Create virtual environment
 
 	```bash
-	conda create --name geoapi py=3
+	conda create --name geoapi py=3.6
 	source activate geoapi
 	pip install -r requirements/all.txt
 	```
