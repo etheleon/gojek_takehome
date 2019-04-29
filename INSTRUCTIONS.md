@@ -140,7 +140,6 @@ curl http://${URL}:${PORT}/average_speed_24hrs?date=${DATE}
 * Please provide your git history. You can do this via  [git-bundle](https://git-scm.com/book/en/v2/Git-Tools-Bundling)  or by sending us a link to a *_private_* git repo. We will be taking a look at your git history, so please keep it tidy and descriptive. Do NOT share your code on a *_public_* repo.
 
 * You should consider this as a production system and include relevant documentation and tests in your code.
-> Pytest with PyDoc
 
 * You should also consider future maintenance of the code and its architecture. Note that you will be working with us to extend this code at a later stage of the interview process.
 > Okay, will try to set up CI | CD with spinnaker and gcr,
