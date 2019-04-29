@@ -18,7 +18,7 @@ Before running the module please remember to set the ENV variable `SETTINGS_FILE
 * Create virtual environment
 
 	```bash
-	conda create --name geoapi py=3
+	conda create --name geoapi py=3.6
 	source activate geoapi
 	pip install -r requirements/all.txt
 	```
