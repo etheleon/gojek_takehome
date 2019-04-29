@@ -16,6 +16,6 @@ For more details read the [docs: 02-precompute.md](../docs/02-precompute.md).
 docker run --rm \
   -v $CREDS:/creds \
   -v $SETTINGS:/settings \
-  etheleon/gojekcompute \
+  gcr.io/datascience-237903/gojek:compute \
   [trips_per_day | fare_heatmaps | average_speed ]
 ```
