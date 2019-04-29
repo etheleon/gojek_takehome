@@ -97,6 +97,7 @@ class Compute:
         (pd.concat([pd.read_csv(csv, compression="gzip") for csv in valids])
          .groupby(["date", "s2id"]).mean()
          .reset_index()
+	 .rename(columns={"total_amount":"fare"})
          .pipe(save_to_gcs, settings.ASSETS.FILES.FARE))
 
     def average_speed(self):  # pylint: disable=no-self-use
