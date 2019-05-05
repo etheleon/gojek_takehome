@@ -27,7 +27,6 @@ Starting with the root directory, you will find several folders:
 * `terraform` necessary scripts to recreate infrastructure eg. GKE cluster.
 * `helm-charts` µservice as an installable app using K8S's de-facto package manager _helm_ (similar to brew but for installing into K8S clusters)
 * `precompute` Contains the python package with binary [gojek](./precompute/gojek/bin/gojek) which will save serving data to GCS. (Requires access to bigquery)
-* `notebook` stores EDA notebook
 * `components` SRC folder for various components required for µservice. Flask app, geoapi, is one such component. extensible in future to include cache, db, etc
 
 As well as standalone files:
