@@ -20,3 +20,9 @@ docker run --rm \
   gcr.io/datascience-237903/gojek:compute \
   [trips_per_day | fare_heatmaps | average_speed ]
 ```
+
+
+ENV Variables
+
+* `SETTINGS` points to the folder storing [settings.py](./config)
+* `CREDS` point to serviceaccount.json belonging to your GCP account
