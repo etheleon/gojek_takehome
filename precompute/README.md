@@ -24,5 +24,5 @@ docker run --rm \
 
 ENV Variables
 
-* `SETTINGS` points to the folder storing [settings.py](./config)
+* `SETTINGS` points to the folder storing [settings.py](./config/settings.py)
 * `CREDS` point to serviceaccount.json belonging to your GCP account
